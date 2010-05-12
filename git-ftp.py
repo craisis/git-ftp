@@ -192,7 +192,8 @@ def upload_diff(diff, tree, ftp, base):
     """
     for line in diff:
         if not line: continue
-        status, file = line.split()
+        line = line.replace("\t", " ")
+        status, file = line.split(" ", 1)
         target = '/'.join((base, file))
         if status == "D":
             try:
