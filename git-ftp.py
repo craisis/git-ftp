@@ -133,6 +133,7 @@ def get_ftp_creds(repo, options):
         cfg = ConfigParser.ConfigParser()
         cfg.read(ftpdata)
         branch = repo.active_branch
+        logging.info("Using branch:"+branch)
 
         # just in case you do not want to store your ftp password.
         try:
