@@ -111,11 +111,11 @@ class FtpData():
 def get_ftp_creds(repo, options):
     """
     Retrieves the data to connect to the FTP from .git/ftpdata
-    or interactively.
+    or interactively.  Note, you can have multiple branches defined
 
     ftpdata format example::
 
-        [ftp]
+        [<branch_name>]
         username=me
         password=s00perP4zzw0rd
         hostname=ftp.hostname.com
