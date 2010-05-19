@@ -48,7 +48,7 @@ def main():
         logging.warning("Working copy is dirty; uncommitted changes will NOT be uploaded")
 
     base = options.ftp.remotepath
-    commit = repo.commits()[0]
+    commit = repo.commits('HEAD')[0]
     tree   = commit.tree
     ftp    = ftplib.FTP(options.ftp.hostname, options.ftp.username, options.ftp.password)
 
@@ -132,15 +132,16 @@ def get_ftp_creds(repo, options):
         logging.info("Using .git/ftpdata")
         cfg = ConfigParser.ConfigParser()
         cfg.read(ftpdata)
+        branch = repo.active_branch
 
         # just in case you do not want to store your ftp password.
         try:
-            options.ftp.password = cfg.get('ftp','password')
+            options.ftp.password = cfg.get(branch,'password')
         except:
             options.ftp.password = getpass.getpass('FTP Password: ')
-        options.ftp.username = cfg.get('ftp','username')
-        options.ftp.hostname = cfg.get('ftp','hostname')
-        options.ftp.remotepath = cfg.get('ftp','remotepath')
+        options.ftp.username = cfg.get(branch,'username')
+        options.ftp.hostname = cfg.get(branch,'hostname')
+        options.ftp.remotepath = cfg.get(branch,'remotepath')
     else:
         options.ftp.username = raw_input('FTP Username: ')
         options.ftp.password = getpass.getpass('FTP Password: ')
